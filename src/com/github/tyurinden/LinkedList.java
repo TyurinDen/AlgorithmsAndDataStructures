@@ -18,10 +18,11 @@ public class LinkedList {
     }
 
     public void addInTail(Node item) {
-        if (this.head == null)
+        if (this.head == null) {
             this.head = item;
-        else
+        } else {
             this.tail.next = item;
+        }
         this.tail = item;
     }
 
@@ -135,6 +136,10 @@ public class LinkedList {
 
     public void insertAfter(Node _nodeAfter, Node _nodeToInsert) {
         if (_nodeToInsert == null) {
+            return; // it would be right to throw an exception in this case
+        }
+        if (count() == 0) { // case list is empty
+            addInTail(_nodeToInsert);
             return;
         }
         if (_nodeAfter == null) {
@@ -142,11 +147,15 @@ public class LinkedList {
             this.head = _nodeToInsert;
             return;
         }
-        _nodeToInsert.next = _nodeAfter.next;
-        _nodeAfter.next = _nodeToInsert;
+        if (_nodeAfter == this.tail) {
+            addInTail(_nodeToInsert);
+        } else {
+            _nodeToInsert.next = _nodeAfter.next;
+            _nodeAfter.next = _nodeToInsert;
+        }
     }
 
-    public LinkedList addTwoLists(LinkedList lList1, LinkedList lList2) {
+    public LinkedList addTwoListsByElementValues(LinkedList lList1, LinkedList lList2) {
         LinkedList resultList = new LinkedList();
         if (lList1.count() != lList2.count()) return resultList;
         Node lList1Node = lList1.head;
@@ -218,10 +227,22 @@ class Node {
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Node node = (Node) o;
+        return value == node.value;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(value);
+    }
+
+    @Override
     public String toString() {
         return "Node{" +
                 "value=" + value +
                 '}';
     }
-
 }
