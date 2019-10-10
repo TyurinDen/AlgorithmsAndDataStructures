@@ -3,8 +3,8 @@ package com.github.tyurinden;
 import java.util.*;
 
 public class LinkedList {
-    private Node head;
-    private Node tail;
+    public Node head;
+    public Node tail;
 
     public LinkedList() {
         head = null;
