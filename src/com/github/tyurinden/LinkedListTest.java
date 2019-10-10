@@ -23,6 +23,13 @@ public class LinkedListTest {
     }
 
     @Test
+    public void addInTailWhenListIsEmpty() {
+        LinkedList linkedList1 = new LinkedList();
+        linkedList1.addInTail(new Node(6));
+        Assert.assertEquals(linkedList1, new LinkedList(6));
+    }
+
+    @Test
     public void find() {
         LinkedList linkedList = new LinkedList(1, 2, 3);
         Assert.assertEquals(linkedList.find(2).getValue(), new Node(2).getValue());
@@ -98,10 +105,17 @@ public class LinkedListTest {
     }
 
     @Test
-    public void insertAfterAfterElementIsNull() {
+    public void insertAfterWhenAfterElementIsNull() {
         LinkedList linkedList = new LinkedList(1, 2, 3);
         linkedList.insertAfter(null, new Node(4));
         assertEquals(linkedList, new LinkedList(4, 1, 2, 3));
+    }
+
+    @Test
+    public void insertAfterWhenListIsEmpty() {
+        LinkedList linkedList = new LinkedList();
+        linkedList.insertAfter(null, new Node(4));
+        assertEquals(linkedList, new LinkedList(4));
     }
 
     @Test
