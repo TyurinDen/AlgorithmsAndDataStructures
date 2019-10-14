@@ -1,8 +1,9 @@
-package com.github.tyurinden;
+package com.github.tyurinden.linked_list;
 
 import org.junit.Test;
 import java.util.ArrayList;
 import java.util.List;
+
 import static org.junit.Assert.*;
 
 public class LinkedListTest {

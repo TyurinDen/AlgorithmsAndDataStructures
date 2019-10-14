@@ -1,8 +1,8 @@
-package com.github.tyurinden;
+package com.github.tyurinden.linked_list;
 
 import java.util.*;
 
-public class LinkedList {
+class LinkedList {
     public Node head;
     public Node tail;
 
@@ -29,8 +29,9 @@ public class LinkedList {
     public Node find(int value) {
         Node node = this.head;
         while (node != null) {
-            if (node.value == value)
+            if (node.value == value) {
                 return node;
+            }
             node = node.next;
         }
         return null;
@@ -67,8 +68,7 @@ public class LinkedList {
         while (current != null) {
             if (current.value == _value) {
                 if (this.head == this.tail) {
-                    this.head = null;
-                    this.tail = null;
+                    this.clear();
                     return true;
                 }
                 if (current == this.head) {
@@ -95,8 +95,7 @@ public class LinkedList {
         while (current != null) {
             if (current.value == _value) {
                 if (this.head == this.tail) {
-                    this.head = null;
-                    this.tail = null;
+                    this.clear();
                     return;
                 }
                 if (current == this.head) {
