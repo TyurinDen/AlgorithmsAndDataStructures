@@ -51,31 +51,30 @@ public class LinkedList2 {
     }
 
     public boolean remove(int _value) {
-        Node node = this.head;
-        //TODO уродливо!! Переписать! Нужно использоваться метод find()
-        while (node != null) {
-            if (node.value == _value) {
-                if (node == this.head) {
-                    this.head = node.next;
-                    this.head.prev = null;
-                    return true;
-                }
-                if (node == this.tail) {
-                    this.tail = node.prev;
-                    this.tail.next = null;
-                    return true;
-                }
-                node.prev.next = node.next;
-                node.next.prev = node.prev;
+        Node node;
+        if ((node = this.find(_value)) != null) {
+            if (this.head == this.tail) {
+                this.clear();
                 return true;
             }
-            node = node.next;
+            if (node == this.head) {
+                this.head = node.next;
+                this.head.prev = null;
+                return true;
+            }
+            if (node == this.tail) {
+                this.tail = node.prev;
+                this.tail.next = null;
+                return true;
+            }
+            node.prev.next = node.next;
+            node.next.prev = node.prev;
+            return true;
         }
         return false;
     }
 
     public void removeAll(int _value) {
-        //TODO тоже можно использовать метод findAll() ????
         Node node = this.head;
         while (node != null) {
             if (node.value == _value) {

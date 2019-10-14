@@ -23,9 +23,8 @@ public class LinkedList2Test {
     @Test
     public void find() {
         LinkedList2 linkedList = new LinkedList2(1, 2, 3, 4, 5);
-        Node node = linkedList.find(3);
-        assertEquals(node, linkedList.find(3));
         assertNull(linkedList.find(10));
+        assertEquals(3, linkedList.find(3).value);
         assertEquals(1, linkedList.find(1).value);
         assertEquals(5, linkedList.find(5).value);
     }
@@ -55,11 +54,20 @@ public class LinkedList2Test {
     }
 
     @Test
+    public void findAllWhenListHasOnlyOneElement() {
+        List<Node> nodeList = new ArrayList<>();
+        nodeList.add(new Node(1));
+        LinkedList2 linkedList = new LinkedList2(1);
+        assertArrayEquals(nodeList.toArray(), linkedList.findAll(1).toArray());
+    }
+
+    @Test
     public void remove() {
         LinkedList2 linkedList = new LinkedList2(1, 2, 3, 3, 5);
         assertTrue(linkedList.remove(3));
         assertEquals(4, linkedList.count());
         assertEquals(new LinkedList2(1, 2, 3, 5), linkedList);
+        assertEquals(5, linkedList.tail.value);
     }
 
     @Test
@@ -85,14 +93,14 @@ public class LinkedList2Test {
         LinkedList2 linkedList = new LinkedList2(1, 2, 3, 4, 5);
         assertFalse(linkedList.remove(6));
         assertEquals(5, linkedList.count());
-        assertEquals(5, linkedList.tail.value);
         assertEquals(1, linkedList.head.value);
+        assertEquals(5, linkedList.tail.value);
     }
 
     @Test
     public void removeWhenRemovedItemIsOnlyOneInWholeList() {
         LinkedList2 linkedList = new LinkedList2(1);
-        assertFalse(linkedList.remove(1));
+        assertTrue(linkedList.remove(1));
         assertNull(linkedList.head);
         assertNull(linkedList.tail);
     }
@@ -169,10 +177,10 @@ public class LinkedList2Test {
 
     @Test
     public void count() {
-        LinkedList2 linkedList = new LinkedList2(1, 2, 3, 4);
-        assertEquals(4, linkedList.count());
+        LinkedList2 linkedList = new LinkedList2(1, 2, 3, 4, 3, 5);
+        assertEquals(6, linkedList.count());
         linkedList.removeAll(3);
-        assertEquals(3, linkedList.count());
+        assertEquals(4, linkedList.count());
     }
 
     @Test
@@ -223,8 +231,8 @@ public class LinkedList2Test {
         assertEquals(new LinkedList2(1, 2, 3, 4, 5, 55), linkedList);
         assertEquals(newNode, linkedList.tail);
         assertEquals(linkedList.find(5).next, newNode);
-        assertNull(newNode.next);
         assertEquals(linkedList.find(5), newNode.prev);
+        assertNull(newNode.next);
     }
 
 }
