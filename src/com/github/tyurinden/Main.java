@@ -3,6 +3,7 @@ package com.github.tyurinden;
 public class Main {
 
     public static void main(String[] args) {
-	// write your code here
+        int cap = 1000;
+        System.out.println((cap * 2) / 3);
     }
 }

@@ -7,6 +7,7 @@ public class DynArray<T> {
     public T[] array;
     public int count;
     public int capacity;
+    public int possibleNewCapacity;
     Class clazz;
 
     public DynArray(Class clz) {
@@ -20,7 +21,7 @@ public class DynArray<T> {
         clazz = clz;
         count = 0;
         capacity = initialCapacity;
-        array = (T[]) Array.newInstance(this.clazz, capacity);
+        array = (T[]) Array.newInstance(this.clazz, initialCapacity);
     }
 
     public void makeArray(int new_capacity) {
@@ -54,8 +55,12 @@ public class DynArray<T> {
     }
 
     public void insert(T itm, int index) {
-        if (index < 0 || index > this.count - 1) {
+        if (index < 0 || index > this.count) {
             throw new IllegalArgumentException("Index is out of bounds!");
+        }
+        if (index == count) {
+            append(itm);
+            return;
         }
         if (capacity < count + 1) {
             makeArray(capacity * 2);
@@ -68,7 +73,15 @@ public class DynArray<T> {
     }
 
     public void remove(int index) {
-        // ваш код
+        if (index < 0 || index > this.count - 1) {
+            throw new IllegalArgumentException("Index is out of bounds!");
+        }
+        System.arraycopy(array, index + 1, array, index, count - index - 1);
+        count--;
+        possibleNewCapacity = (capacity * 2) / 3;
+        if (!(possibleNewCapacity < count)) {
+            makeArray(possibleNewCapacity);
+        }
     }
 
 }
