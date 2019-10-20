@@ -163,4 +163,8 @@ public class DynArrayTest {
         assertEquals(15, integerDynArray.getItem(9).intValue());
     }
 
+    @Test
+    public void populateArrayWithTestIntegerData() {
+        DynArray<Integer> integerDynArray = DynArray.createDynArrayAndPopulateItWithTestIntegerData(50);
+    }
 }

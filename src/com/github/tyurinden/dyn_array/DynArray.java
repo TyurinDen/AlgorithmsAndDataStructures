@@ -54,6 +54,14 @@ public class DynArray<T> {
         }
     }
 
+    public static DynArray<Integer> createDynArrayAndPopulateItWithTestIntegerData(int initialCapacity) {
+        DynArray<Integer> intDynArr = new DynArray(Integer.TYPE, initialCapacity);
+        for (int i = 0; i < initialCapacity; i++) {
+            intDynArr.append(i);
+        }
+        return intDynArr;
+    }
+
     public void insert(T itm, int index) {
         if (index < 0 || index > this.count) {
             throw new IllegalArgumentException("Index is out of bounds!");
