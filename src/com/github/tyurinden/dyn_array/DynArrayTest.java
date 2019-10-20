@@ -2,6 +2,10 @@ package com.github.tyurinden.dyn_array;
 
 import org.junit.Test;
 
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.Map;
+
 import static org.junit.Assert.*;
 
 public class DynArrayTest {
@@ -124,48 +128,191 @@ public class DynArrayTest {
         assertEquals(16, integerDynArray.capacity);
         integerDynArray.remove(2);
         assertEquals(4, integerDynArray.count);
+        assertEquals(16, integerDynArray.capacity);
         assertEquals(0, integerDynArray.getItem(0).intValue());
         assertEquals(1, integerDynArray.getItem(1).intValue());
         assertEquals(3, integerDynArray.getItem(2).intValue());
         assertEquals(4, integerDynArray.getItem(3).intValue());
+    }
+
+    @Test
+    public void appendAndRemoveManyManyElementsFromEndOfArray() {
+        DynArray<Integer> integerDynArray = new DynArray<>(Integer.class);
+        for (int i = 0; i < 100_000; i++) {
+            integerDynArray.append(i);
+        }
+        assertEquals(100_000, integerDynArray.count);
+//      capacity = 131_072
+        assertEquals(0, integerDynArray.getItem(0).intValue());
+        assertEquals(99_999, integerDynArray.getItem(99_999).intValue());
+
+        for (int i = 0; i < 99_999; i++) {
+            integerDynArray.remove(integerDynArray.count - 1);
+            assertEquals(integerDynArray.count - 1,
+                    integerDynArray.getItem(integerDynArray.count - 1).intValue());
+        }
+
+        assertEquals(1, integerDynArray.count);
+        assertEquals(16, integerDynArray.capacity);
+
+        integerDynArray.remove(0);
+        assertEquals(0, integerDynArray.count);
+        assertEquals(16, integerDynArray.capacity);
+    }
+
+    @Test
+    public void appendAndRemoveManyManyElementsFromBeginningOfArray() {
+        DynArray<Integer> integerDynArray = new DynArray<>(Integer.class);
+        for (int i = 0; i < 100_000; i++) {
+            integerDynArray.append(i);
+        }
+        assertEquals(100_000, integerDynArray.count);
+        assertEquals(0, integerDynArray.getItem(0).intValue());
+        assertEquals(99_999, integerDynArray.getItem(99_999).intValue());
+
+        for (int i = 0; i < 99_999; i++) {
+            integerDynArray.remove(0);
+            assertEquals(i + 1, integerDynArray.getItem(0).intValue());
+        }
+        assertEquals(1, integerDynArray.count);
+        assertEquals(16, integerDynArray.capacity);
+
+        integerDynArray.remove(0);
+        assertEquals(0, integerDynArray.count);
+        assertEquals(16, integerDynArray.capacity);
+    }
+
+    @Test
+    public void appendAndRemoveManyManyElementsInRandomOrder() {
+        DynArray<Integer> integerDynArray = new DynArray<>(Integer.class);
+        int insIndex;
+        for (int i = 0; i < 10_000; i++) {
+            insIndex = (int) ((Math.random() * integerDynArray.count));
+            integerDynArray.insert(i, insIndex);
+        }
+        assertEquals(10_000, integerDynArray.count);
+
+        int delIndex;
+        for (int i = 0; i < 9_999; i++) {
+            delIndex = (int) ((Math.random() * integerDynArray.count) - 1);
+            integerDynArray.remove(delIndex);
+        }
+        assertEquals(1, integerDynArray.count);
+        assertEquals(16, integerDynArray.capacity);
+    }
+
+    @Test
+    public void appendAndRemoveManyManyElementsInRandomOrderWithChecking() {
+        DynArray<Integer> integerDynArray = new DynArray<>(Integer.class);
+        int insIndex;
+        assertEquals(0, integerDynArray.count);
+        for (int i = 0; i < 100; i++) {
+            insIndex = (int) ((Math.random() * integerDynArray.count));
+//            System.out.print(insIndex + " ");
+            integerDynArray.insert(i, insIndex); // элементы уникальны, индексы произвольны
+        }
+        assertEquals(100, integerDynArray.count);
+//        System.out.println(integerDynArray);
+
+        for (int i = 0; i < 10; i++) {
+            integerDynArray.remove(0);
+        }
+        assertEquals(90, integerDynArray.count);
+//        System.out.println(integerDynArray);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void removeWhenIndexIsIncorrect() {
-        DynArray<Integer> integerDynArray = new DynArray<>(Integer.class);
-        integerDynArray.appendMany(0, 1, 2, 3, 4);
-        assertEquals(5, integerDynArray.count);
-        assertEquals(16, integerDynArray.capacity);
-        integerDynArray.remove(5);
-        integerDynArray.remove(-1);
-    }
-
-    @Test
     public void removeWhenRemovedItemIsLast() {
         DynArray<Integer> integerDynArray = new DynArray<>(Integer.class);
-        integerDynArray.appendMany(0, 1, 2, 3, 4);
-        assertEquals(5, integerDynArray.count);
+        integerDynArray.appendMany(0, 1, 2);
+        assertEquals(3, integerDynArray.count);
         assertEquals(16, integerDynArray.capacity);
-        integerDynArray.remove(4);
-        assertEquals(4, integerDynArray.count);
+        integerDynArray.remove(integerDynArray.count - 1);
+        assertEquals(2, integerDynArray.count);
+        assertEquals(16, integerDynArray.capacity);
         assertEquals(0, integerDynArray.getItem(0).intValue());
         assertEquals(1, integerDynArray.getItem(1).intValue());
-        assertEquals(2, integerDynArray.getItem(2).intValue());
-        assertEquals(3, integerDynArray.getItem(3).intValue());
+
+        integerDynArray.remove(integerDynArray.count - 1);
+        assertEquals(1, integerDynArray.count);
+        assertEquals(16, integerDynArray.capacity);
+        assertEquals(0, integerDynArray.getItem(0).intValue());
+
+        integerDynArray.remove(integerDynArray.count - 1);
+        assertEquals(0, integerDynArray.count);
+        assertEquals(16, integerDynArray.capacity);
+        integerDynArray.remove(integerDynArray.count - 1);
     }
 
-    @Test
-    public void removeWhenRemovedItemIsFirst() {
+    @Test(expected = IllegalArgumentException.class)
+    public void removeAllArrayItems() {
         DynArray<Integer> integerDynArray = new DynArray<>(Integer.class);
         integerDynArray.appendMany(0, 1, 2, 3, 4);
         assertEquals(5, integerDynArray.count);
         assertEquals(16, integerDynArray.capacity);
-        integerDynArray.remove(0);
+        integerDynArray.remove(2);
         assertEquals(4, integerDynArray.count);
-        assertEquals(1, integerDynArray.getItem(0).intValue());
-        assertEquals(2, integerDynArray.getItem(1).intValue());
+        assertEquals(16, integerDynArray.capacity);
+        assertEquals(0, integerDynArray.getItem(0).intValue());
+        assertEquals(1, integerDynArray.getItem(1).intValue());
         assertEquals(3, integerDynArray.getItem(2).intValue());
         assertEquals(4, integerDynArray.getItem(3).intValue());
+
+        integerDynArray.remove(2);
+        assertEquals(3, integerDynArray.count);
+        assertEquals(16, integerDynArray.capacity);
+        assertEquals(0, integerDynArray.getItem(0).intValue());
+        assertEquals(1, integerDynArray.getItem(1).intValue());
+        assertEquals(4, integerDynArray.getItem(2).intValue());
+
+        integerDynArray.remove(1);
+        assertEquals(2, integerDynArray.count);
+        assertEquals(16, integerDynArray.capacity);
+        assertEquals(0, integerDynArray.getItem(0).intValue());
+        assertEquals(4, integerDynArray.getItem(1).intValue());
+
+        integerDynArray.remove(1);
+        assertEquals(1, integerDynArray.count);
+        assertEquals(16, integerDynArray.capacity);
+        assertEquals(0, integerDynArray.getItem(0).intValue());
+
+        integerDynArray.remove(0);
+        assertEquals(0, integerDynArray.count);
+        assertEquals(16, integerDynArray.capacity);
+        integerDynArray.getItem(0);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void removeWhenRemovedItemIsFirst() {
+        DynArray<Integer> integerDynArray = new DynArray<>(Integer.class);
+        integerDynArray.appendMany(0, 1, 2);
+        assertEquals(3, integerDynArray.count);
+        assertEquals(16, integerDynArray.capacity);
+        integerDynArray.remove(0);
+        assertEquals(2, integerDynArray.count);
+        assertEquals(16, integerDynArray.capacity);
+        assertEquals(1, integerDynArray.getItem(0).intValue());
+        assertEquals(2, integerDynArray.getItem(1).intValue());
+
+        integerDynArray.remove(0);
+        assertEquals(1, integerDynArray.count);
+        assertEquals(2, integerDynArray.getItem(0).intValue());
+
+        integerDynArray.remove(0);
+        assertEquals(0, integerDynArray.count);
+        integerDynArray.remove(0);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void removeWhenIsOnlyOneElementInArray() {
+        DynArray<Integer> integerDynArray = new DynArray<>(Integer.class);
+        integerDynArray.append(0);
+        assertEquals(1, integerDynArray.count);
+        assertEquals(16, integerDynArray.capacity);
+        integerDynArray.remove(0);
+        assertEquals(0, integerDynArray.count);
+        assertEquals(16, integerDynArray.capacity);
+        integerDynArray.remove(0);
     }
 
     @Test // тест проверял функционал уменьшения емкости массива без ограничения снизу. с ограничением не проходит
@@ -196,7 +343,7 @@ public class DynArrayTest {
         DynArray<Integer> integerDynArray = DynArray.createIntegerDynArrayAndPopulateItWithTestData(50);
         assertEquals(50, integerDynArray.count);
         assertEquals(50, integerDynArray.capacity);
-        for (int i =integerDynArray.count - 1; i > 33; i--) {
+        for (int i = integerDynArray.count - 1; i > 33; i--) {
             integerDynArray.remove(i);
         }
         assertEquals(34, integerDynArray.count);
@@ -212,7 +359,7 @@ public class DynArrayTest {
         DynArray<Integer> integerDynArray = DynArray.createIntegerDynArrayAndPopulateItWithTestData(20);
         assertEquals(20, integerDynArray.count);
         assertEquals(20, integerDynArray.capacity);
-        for (int i =integerDynArray.count - 1; i > 13; i--) {
+        for (int i = integerDynArray.count - 1; i > 13; i--) {
             integerDynArray.remove(i);
         }
         assertEquals(14, integerDynArray.count);
@@ -222,6 +369,16 @@ public class DynArrayTest {
         assertEquals(13, integerDynArray.count);
         assertEquals(13, integerDynArray.possibleNewCapacity);
         assertEquals(16, integerDynArray.capacity);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void removeWhenIndexIsIncorrect() {
+        DynArray<Integer> integerDynArray = new DynArray<>(Integer.class);
+        integerDynArray.appendMany(0, 1, 2, 3, 4);
+        assertEquals(5, integerDynArray.count);
+        assertEquals(16, integerDynArray.capacity);
+        integerDynArray.remove(5);
+        integerDynArray.remove(-1);
     }
 
     @Test

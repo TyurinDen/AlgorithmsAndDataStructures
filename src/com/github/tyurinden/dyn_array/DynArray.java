@@ -91,4 +91,13 @@ public class DynArray<T> {
             makeArray(Math.max(possibleNewCapacity, 16));
         }
     }
+
+    @Override
+    public String toString() {
+        StringBuilder stringBuilder = new StringBuilder();
+        for (int i = 0; i < count; i++) {
+            stringBuilder.append(i).append("=").append(array[i]).append(", ");
+        }
+        return stringBuilder.toString();
+    }
 }
