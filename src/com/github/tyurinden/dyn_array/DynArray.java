@@ -54,8 +54,8 @@ public class DynArray<T> {
         }
     }
 
-    public static DynArray<Integer> createDynArrayAndPopulateItWithTestIntegerData(int initialCapacity) {
-        DynArray<Integer> intDynArr = new DynArray(Integer.TYPE, initialCapacity);
+    public static DynArray<Integer> createIntegerDynArrayAndPopulateItWithTestData(int initialCapacity) {
+        DynArray intDynArr = new DynArray(Integer.class, initialCapacity);
         for (int i = 0; i < initialCapacity; i++) {
             intDynArr.append(i);
         }
@@ -71,7 +71,7 @@ public class DynArray<T> {
             return;
         }
         if (capacity < count + 1) {
-            makeArray(capacity * 2);
+            makeArray(capacity << 1);
         }
         if (count - index >= 0) {
             System.arraycopy(array, index, array, index + 1, count - index);
@@ -88,8 +88,7 @@ public class DynArray<T> {
         count--;
         possibleNewCapacity = (capacity * 2) / 3;
         if (!(possibleNewCapacity < count)) {
-            makeArray(possibleNewCapacity);
+            makeArray(Math.max(possibleNewCapacity, 16));
         }
     }
-
 }
