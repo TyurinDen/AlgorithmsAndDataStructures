@@ -86,9 +86,8 @@ public class DynArray<T> {
         }
         System.arraycopy(array, index + 1, array, index, count - index - 1);
         count--;
-        possibleNewCapacity = (capacity * 2) / 3;
-        if (!(possibleNewCapacity < count)) {
-            makeArray(Math.max(possibleNewCapacity, 16));
+        if (count < capacity / 2) {
+            makeArray(Math.max((capacity * 2) / 3, 16));
         }
     }
 

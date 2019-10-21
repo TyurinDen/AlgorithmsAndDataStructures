@@ -82,6 +82,16 @@ public class DynArrayTest {
 
         integerDynArray.remove(integerDynArray.count - 1);
         assertEquals(1047, integerDynArray.count);
+        assertEquals(2048, integerDynArray.capacity);
+
+        for (int i = 0; i < 23; i++) {
+            integerDynArray.remove(integerDynArray.count - 1);
+        }
+        assertEquals(1024, integerDynArray.count);
+        assertEquals(2048, integerDynArray.capacity);
+
+        integerDynArray.remove(integerDynArray.count - 1);
+        assertEquals(1023, integerDynArray.count);
         assertEquals(1365, integerDynArray.capacity);
     }
 
@@ -341,14 +351,14 @@ public class DynArrayTest {
         DynArray<Integer> integerDynArray = DynArray.createIntegerDynArrayAndPopulateItWithTestData(50);
         assertEquals(50, integerDynArray.count);
         assertEquals(50, integerDynArray.capacity);
-        for (int i = integerDynArray.count - 1; i > 33; i--) {
-            integerDynArray.remove(i);
+        for (int i = 0; i < 25; i++) {
+            integerDynArray.remove(integerDynArray.count - 1);
         }
-        assertEquals(34, integerDynArray.count);
+        assertEquals(25, integerDynArray.count);
         assertEquals(50, integerDynArray.capacity);
 
         integerDynArray.remove(integerDynArray.count - 1);
-        assertEquals(33, integerDynArray.count);
+        assertEquals(24, integerDynArray.count);
         assertEquals(33, integerDynArray.capacity);
     }
 
@@ -357,15 +367,14 @@ public class DynArrayTest {
         DynArray<Integer> integerDynArray = DynArray.createIntegerDynArrayAndPopulateItWithTestData(20);
         assertEquals(20, integerDynArray.count);
         assertEquals(20, integerDynArray.capacity);
-        for (int i = integerDynArray.count - 1; i > 13; i--) {
-            integerDynArray.remove(i);
+        for (int i = 0; i < 10; i++) {
+            integerDynArray.remove(0);
         }
-        assertEquals(14, integerDynArray.count);
+        assertEquals(10, integerDynArray.count);
         assertEquals(20, integerDynArray.capacity);
 
-        integerDynArray.remove(integerDynArray.count - 1);
-        assertEquals(13, integerDynArray.count);
-        assertEquals(13, integerDynArray.possibleNewCapacity);
+        integerDynArray.remove(0);
+        assertEquals(9, integerDynArray.count);
         assertEquals(16, integerDynArray.capacity);
     }
 
