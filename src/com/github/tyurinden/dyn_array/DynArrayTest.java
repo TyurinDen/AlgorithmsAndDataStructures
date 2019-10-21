@@ -71,20 +71,18 @@ public class DynArrayTest {
         integerDynArray.getItem(integerDynArray.count); // throws IllegalArgumentException
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void insertWhenCapacityOfArrayIncreases() {
-        DynArray<Integer> integerDynArray = new DynArray<>(Integer.class, 5);
-        integerDynArray.appendMany(0, 1, 2, 3, 4);
-        assertEquals(5, integerDynArray.count);
-        assertEquals(5, integerDynArray.capacity);
-        integerDynArray.insert(22, 2);
-        assertEquals(6, integerDynArray.count);
-        assertEquals(10, integerDynArray.capacity);
-        assertEquals(22, integerDynArray.getItem(2).intValue());
-        assertEquals(2, integerDynArray.getItem(3).intValue());
-        assertEquals(3, integerDynArray.getItem(4).intValue());
-        assertEquals(4, integerDynArray.getItem(5).intValue());
-        integerDynArray.getItem(integerDynArray.count); // throws IllegalArgumentException
+        DynArray<Integer> integerDynArray = new DynArray<>(Integer.class);
+        for (int i = 0; i < 1048; i++) {
+            integerDynArray.append(i);
+        }
+        assertEquals(1048, integerDynArray.count);
+        assertEquals(2048, integerDynArray.capacity);
+
+        integerDynArray.remove(integerDynArray.count - 1);
+        assertEquals(1047, integerDynArray.count);
+        assertEquals(1365, integerDynArray.capacity);
     }
 
     @Test(expected = IllegalArgumentException.class)
