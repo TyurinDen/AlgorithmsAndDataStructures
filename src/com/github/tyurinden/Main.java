@@ -1,20 +1,20 @@
 package com.github.tyurinden;
 
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Main {
 
-    public static void main(String[] args) {
-        List<Integer> integerList = new ArrayList<>();
-        integerList.add(123);
-        integerList.add(456);
-        summ(integerList);
-
-        List<Float> floatList = new ArrayList<>();
-        floatList.add(1.1f);
-        floatList.add(2.2f);
-        summ(floatList);
+    public static void main(String[] args) throws CloneNotSupportedException, InterruptedException {
+        Qux qux = new Qux(1);
+        Qux.Corge corge = qux.new Corge();
+        Qux.Quux quux = new Qux.Quux();
+        long l = Long.MIN_VALUE;
+        while (true) {
+            String s = String.valueOf(l).intern();
+            l++;
+        }
     }
 
 //    public static void summ(List<? super Number> numbers) {

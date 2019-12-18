@@ -79,4 +79,35 @@ public class StackTest {
         assertEquals(0, integerStack.size());
     }
 
+    @Test
+    public void trimToSizeAndPushAgain() {
+        Stack<Integer> integerStack = new Stack<>();
+        assertEquals(0, integerStack.size());
+        for (int i = 0; i < 1000; i++) {
+            integerStack.push(i);
+        }
+        assertEquals(1369, integerStack.getCapacity());
+
+        while (integerStack.size() > 0) {
+            integerStack.pop();
+        }
+        assertEquals(1369, integerStack.getCapacity());
+        assertEquals(0, integerStack.size());
+
+        integerStack.trimToSize();
+        assertEquals(16, integerStack.getCapacity());
+        assertEquals(0, integerStack.size());
+
+        for (int i = 0; i < 20; i++) {
+            integerStack.push(i);
+        }
+        assertEquals(20, integerStack.size());
+        assertEquals(24, integerStack.getCapacity());
+
+        integerStack.trimToSize();
+        assertEquals(20, integerStack.size());
+        assertEquals(20, integerStack.getCapacity());
+
+    }
+
 }
