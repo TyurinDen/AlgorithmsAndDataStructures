@@ -1,4 +1,4 @@
-package com.github.tyurinden;
+package com.github.tyurinden.gc;
 
 import java.lang.ref.PhantomReference;
 import java.lang.ref.Reference;
