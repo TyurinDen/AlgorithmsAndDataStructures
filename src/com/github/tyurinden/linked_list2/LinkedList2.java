@@ -140,7 +140,7 @@ public class LinkedList2 {
 
     @Override
     public boolean equals(Object o) {
-        //списки равны только если равны их размеры и все их соответстующие элементы, т.е. списки 1,2,3 и 1,3,2 не равны.
+        //списки равны только если равны их размеры и все их соответствующие элементы, т.е. списки 1,2,3 и 1,3,2 не равны.
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         LinkedList2 other = (LinkedList2) o;

@@ -1,6 +1,7 @@
 package com.github.tyurinden.linked_list;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Objects;
 
 class LinkedList {
     public Node head;
