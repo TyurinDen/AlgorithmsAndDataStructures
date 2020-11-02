@@ -333,7 +333,7 @@ public class DynArrayTest {
         integerDynArray.remove(0); // 5 - 11
 
         integerDynArray.remove(0); // 6 - 10: After that the capacity of the array is reduced to 10;
-        Assert.assertFalse(integerDynArray.possibleNewCapacity < integerDynArray.count);
+        Assert.assertFalse(integerDynArray.possibleNewCapacity < integerDynArray.count); //FIXME падает на этой строке
         Assert.assertEquals(10, integerDynArray.count);
         Assert.assertEquals(10, integerDynArray.capacity);
 
