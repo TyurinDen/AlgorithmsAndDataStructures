@@ -111,6 +111,56 @@ public class DequeTest {
     }
 
     @Test
+    public void shouldReturnCorrectValuesWhenAddedToHeadButFetchedFromTail() {
+        final Deque<Integer> deque = new Deque<>();
+
+        Assert.assertNull(deque.removeFront());
+        Assert.assertNull(deque.removeTail());
+
+        deque.addTail(1);
+        deque.addTail(2);
+        deque.addTail(3);
+        deque.addTail(4);
+        deque.addTail(5);
+        Assert.assertEquals(5, deque.size());
+
+        Assert.assertEquals(Integer.valueOf(1), deque.removeFront());
+        Assert.assertEquals(Integer.valueOf(2), deque.removeFront());
+        Assert.assertEquals(Integer.valueOf(3), deque.removeFront());
+        Assert.assertEquals(Integer.valueOf(4), deque.removeFront());
+        Assert.assertEquals(Integer.valueOf(5), deque.removeFront());
+
+        Assert.assertEquals(0, deque.size());
+        Assert.assertNull(deque.removeFront());
+        Assert.assertNull(deque.removeTail());
+    }
+
+    @Test
+    public void shouldReturnCorrectValuesWhenAddedToTailButFetchedFromHead() {
+        final Deque<Integer> deque = new Deque<>();
+
+        Assert.assertNull(deque.removeFront());
+        Assert.assertNull(deque.removeTail());
+
+        deque.addFront(1);
+        deque.addFront(2);
+        deque.addFront(3);
+        deque.addFront(4);
+        deque.addFront(5);
+        Assert.assertEquals(5, deque.size());
+
+        Assert.assertEquals(Integer.valueOf(1), deque.removeTail());
+        Assert.assertEquals(Integer.valueOf(2), deque.removeTail());
+        Assert.assertEquals(Integer.valueOf(3), deque.removeTail());
+        Assert.assertEquals(Integer.valueOf(4), deque.removeTail());
+        Assert.assertEquals(Integer.valueOf(5), deque.removeTail());
+
+        Assert.assertEquals(0, deque.size());
+        Assert.assertNull(deque.removeFront());
+        Assert.assertNull(deque.removeTail());
+    }
+
+    @Test
     public void shouldReturnCorrectValuesWhenAddedToTail() {
         final Deque<Integer> deque = new Deque<>();
         Assert.assertEquals(0, deque.size());

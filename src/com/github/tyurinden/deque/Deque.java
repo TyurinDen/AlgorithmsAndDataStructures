@@ -85,18 +85,6 @@ public class Deque<T> {
             this.value = value;
         }
 
-//        public V getValue() {
-//            return value;
-//        }
-//
-//        public Node<V> getNext() {
-//            return next;
-//        }
-//
-//        public Node<V> getPrev() {
-//            return prev;
-//        }
-
         @Override
         public boolean equals(final Object o) {
             if (this == o) {
