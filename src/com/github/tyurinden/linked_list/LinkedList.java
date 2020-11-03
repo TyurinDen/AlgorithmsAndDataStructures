@@ -51,7 +51,9 @@ class LinkedList {
     }
 
     public int[] toArray() {
-        if (count() == 0) return new int[0];
+        if (count() == 0) {
+            return new int[0];
+        }
         int[] ints = new int[count()];
         int i = 0;
         Node node = this.head;
@@ -157,7 +159,9 @@ class LinkedList {
 
     public LinkedList addTwoListsByElementValues(LinkedList lList1, LinkedList lList2) {
         LinkedList resultList = new LinkedList();
-        if (lList1.count() != lList2.count()) return resultList;
+        if (lList1.count() != lList2.count()) {
+            return resultList;
+        }
         Node lList1Node = lList1.head;
         Node lList2Node = lList2.head;
         while (lList1Node != null) {
@@ -170,14 +174,16 @@ class LinkedList {
 
     @Override
     public String toString() {
-        if (this.count() == 0) return "";
+        if (this.count() == 0) {
+            return "";
+        }
 
         StringBuilder stringBuilder = new StringBuilder();
         Node node = this.head;
         while (node != null) {
             stringBuilder.append("{ ")
-                    .append(node.value)
-                    .append(" }, ");
+                         .append(node.value)
+                         .append(" }, ");
             node = node.next;
         }
         return stringBuilder.substring(0, stringBuilder.length() - 2);
@@ -186,16 +192,24 @@ class LinkedList {
     @Override
     public boolean equals(Object o) {
         //списки равны только если равны их размеры и все их соответстующие элементы, т.е. списки 1,2,3 и 1,3,2 не равны.
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         LinkedList other = (LinkedList) o;
 
-        if (this.count() != other.count()) return false;
+        if (this.count() != other.count()) {
+            return false;
+        }
 
         Node thisNode = this.head;
         Node otherNode = other.head;
         while (thisNode != null) {
-            if (thisNode.value != otherNode.value) return false;
+            if (thisNode.value != otherNode.value) {
+                return false;
+            }
             thisNode = thisNode.next;
             otherNode = otherNode.next;
         }
@@ -207,42 +221,47 @@ class LinkedList {
         return Objects.hash(head, tail);
     }
 
-}
 
-class Node {
-    int value;
-    Node next;
+    private static class Node {
+        int value;
+        Node next;
 
-    public Node(int _value) {
-        value = _value;
-        next = null;
+        private Node(int _value) {
+            value = _value;
+            next = null;
+        }
+
+        public int getValue() {
+            return value;
+        }
+
+        public Node getNext() {
+            return next;
+        }
+
+        @Override
+        public boolean equals(final Object o) {
+            if (this == o) {
+                return true;
+            }
+            if (o == null || getClass() != o.getClass()) {
+                return false;
+            }
+            final Node node = (Node) o;
+            return value == node.value;
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(value);
+        }
+
+        @Override
+        public String toString() {
+            return "Node{" +
+                   "value=" + value +
+                   '}';
+        }
     }
 
-    public int getValue() {
-        return value;
-    }
-
-    public Node getNext() {
-        return next;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Node node = (Node) o;
-        return value == node.value;
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(value);
-    }
-
-    @Override
-    public String toString() {
-        return "Node{" +
-                "value=" + value +
-                '}';
-    }
 }
