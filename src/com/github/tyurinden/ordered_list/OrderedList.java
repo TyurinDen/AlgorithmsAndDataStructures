@@ -1,6 +1,6 @@
 package com.github.tyurinden.ordered_list;
 
-import java.util.ArrayList;
+import java.util.*;
 
 public class OrderedList<T> {
     private Node<T> head;
@@ -17,8 +17,19 @@ public class OrderedList<T> {
 
     public int compare(final T v1, final T v2) { // mandatory
         if (v1 instanceof Integer & v2 instanceof Integer) {
-            final Long l1 = Long.valueOf(v1.toString());
-            final Long l2 = Long.valueOf(v2.toString());
+            final Integer i1 = Integer.valueOf(v1.toString().trim());
+            final Integer i2 = Integer.valueOf(v2.toString().trim());
+            if (i1.compareTo(i2) < 0) {
+                return -1;
+            } else if (i1.compareTo(i2) == 0) {
+                return 0;
+            }
+            return 1;
+        }
+
+        if (v1 instanceof Long & v2 instanceof Long) {
+            final Long l1 = Long.valueOf(v1.toString().trim());
+            final Long l2 = Long.valueOf(v2.toString().trim());
             if (l1.compareTo(l2) < 0) {
                 return -1;
             } else if (l1.compareTo(l2) == 0) {
@@ -26,9 +37,54 @@ public class OrderedList<T> {
             }
             return 1;
         }
+
+        if (v1 instanceof Float & v2 instanceof Float) {
+            final Float f1 = Float.valueOf(v1.toString().trim());
+            final Float f2 = Float.valueOf(v2.toString().trim());
+            if (f1.compareTo(f2) < 0) {
+                return -1;
+            } else if (f1.compareTo(f2) == 0) {
+                return 0;
+            }
+            return 1;
+        }
+
+        if (v1 instanceof Double & v2 instanceof Double) {
+            final Double d1 = Double.valueOf(v1.toString().trim());
+            final Double d2 = Double.valueOf(v2.toString().trim());
+            if (d1.compareTo(d2) < 0) {
+                return -1;
+            } else if (d1.compareTo(d2) == 0) {
+                return 0;
+            }
+            return 1;
+        }
+
+        if (v1 instanceof Short & v2 instanceof Short) {
+            final Short s1 = Short.valueOf(v1.toString().trim());
+            final Short s2 = Short.valueOf(v2.toString().trim());
+            if (s1.compareTo(s2) < 0) {
+                return -1;
+            } else if (s1.compareTo(s2) == 0) {
+                return 0;
+            }
+            return 1;
+        }
+
+        if (v1 instanceof Byte & v2 instanceof Byte) {
+            final Byte b1 = Byte.valueOf(v1.toString().trim());
+            final Byte b2 = Byte.valueOf(v2.toString().trim());
+            if (b1.compareTo(b2) < 0) {
+                return -1;
+            } else if (b1.compareTo(b2) == 0) {
+                return 0;
+            }
+            return 1;
+        }
+
         if (v1 instanceof String & v2 instanceof String) {
-            final String str1 = (String) v1;
-            final String str2 = (String) v2;
+            final String str1 = v1.toString().trim();
+            final String str2 = v2.toString().trim();
             if (str1.compareTo(str2) < 0) {
                 return -1;
             } else if (str1.compareTo(str2) == 0) {
@@ -215,18 +271,18 @@ public class OrderedList<T> {
         return stringBuilder.toString();
     }
 
-    private static final class Node<T> {
-        private final T value;
-        private Node<T> next;
-        private Node<T> prev;
+    class Node<V> {
+        public V value;
+        public Node<V> next;
+        public Node<V> prev;
 
-        private Node(final T _value) {
+        public Node(final V _value) {
             value = _value;
             next = null;
             prev = null;
         }
 
-        public T getValue() {
+        public V getValue() {
             return value;
         }
     }

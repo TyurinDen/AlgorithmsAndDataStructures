@@ -14,6 +14,22 @@ public class OrderedListTest {
         return orderedList;
     }
 
+    private OrderedList<Float> createAscFloatOrderedList(final float... floats) {
+        final OrderedList<Float> orderedList = new OrderedList<>(true);
+        for (final float anFloat : floats) {
+            orderedList.add(anFloat);
+        }
+        return orderedList;
+    }
+
+    private OrderedList<Byte> createAscByteOrderedList(final byte... bytes) {
+        final OrderedList<Byte> orderedList = new OrderedList<>(true);
+        for (final byte anByte : bytes) {
+            orderedList.add(anByte);
+        }
+        return orderedList;
+    }
+
     private OrderedList<Integer> createDscIntOrderedList(final int... ints) {
         final OrderedList<Integer> orderedList = new OrderedList<>(false);
         for (final int anInt : ints) {
@@ -104,16 +120,45 @@ public class OrderedListTest {
     }
 
     @Test
-    public void complexCheckOrderedAscList() {
-        final OrderedList<Integer> orderedList = createAscIntOrderedList(3, 1, 2, 0, 10, 8, 4, 7, 9, 5, 6, -2, -1);
+    public void complexCheckOrderedIntAscList() {
+        final OrderedList<Integer> orderedList = createAscIntOrderedList(3, 1, 2, 0, 10, 8, 4, 7, 9, 5, 6, -2, -1, 11);
 //        System.out.println(orderedList);
-        for (int i = -2; i < 11; i++) {
+        for (int i = -2; i < 12; i++) {
             assertEquals(Integer.valueOf(i), orderedList.removeFront());
         }
     }
 
     @Test
-    public void complexCheckOrderedDscList() {
+    public void complexCheckOrderedFloatAscList() {
+        final OrderedList<Float> orderedList = createAscFloatOrderedList(
+                3.1f,
+                1.3f,
+                2f,
+                0.3f,
+                10.2f,
+                8.1f,
+                4f,
+                7.3f,
+                9.1f,
+                5.9f,
+                6.5f,
+                -2.1f,
+                -1.7f
+        );
+//        System.out.println(orderedList);
+        Float f1 = orderedList.removeFront();
+        while (f1 != null) {
+            Float f2 = orderedList.removeFront();
+            if (f2 != null) {
+                assertTrue(f1 < f2);
+            }
+            f1 = f2;
+        }
+
+    }
+
+    @Test
+    public void complexCheckOrderedIntDscList() {
         final OrderedList<Integer> orderedList = createDscIntOrderedList(-1, -2, 3, 1, 2, 0, 10, 8, 4, 7, 9, 5, 6);
 //        System.out.println(orderedList);
         for (int i = 10; i >= -2; i--) {
