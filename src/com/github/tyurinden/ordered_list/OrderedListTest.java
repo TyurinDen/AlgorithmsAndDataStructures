@@ -14,10 +14,26 @@ public class OrderedListTest {
         return orderedList;
     }
 
-    private OrderedList<Float> createAscFloatOrderedList(final float... floats) {
+    private OrderedList<Double> createAscDoubleOrderedList(final double... doubles) {
+        final OrderedList<Double> orderedList = new OrderedList<>(true);
+        for (final double d : doubles) {
+            orderedList.add(d);
+        }
+        return orderedList;
+    }
+
+    private OrderedList<? super Number> createAscNumOrderedList(final Number... nums) {
+        final OrderedList<? super Number> orderedList = new OrderedList<>(true);
+        for (final Number number : nums) {
+            orderedList.add(number);
+        }
+        return orderedList;
+    }
+
+    private OrderedList<Float> createAscDoubleOrderedList(final float... floats) {
         final OrderedList<Float> orderedList = new OrderedList<>(true);
-        for (final float anFloat : floats) {
-            orderedList.add(anFloat);
+        for (final float f : floats) {
+            orderedList.add(f);
         }
         return orderedList;
     }
@@ -34,6 +50,14 @@ public class OrderedListTest {
         final OrderedList<Integer> orderedList = new OrderedList<>(false);
         for (final int anInt : ints) {
             orderedList.add(anInt);
+        }
+        return orderedList;
+    }
+
+    private OrderedList<String> createAscStringOrderedList(final String... strings) {
+        final OrderedList<String> orderedList = new OrderedList<>(true);
+        for (final String s : strings) {
+            orderedList.add(s);
         }
         return orderedList;
     }
@@ -129,8 +153,36 @@ public class OrderedListTest {
     }
 
     @Test
+    public void complexCheckOrderedDoubleAscList() {
+        final OrderedList<Double> orderedList = createAscDoubleOrderedList(
+                3.1d,
+                1.3,
+                2f,
+                0.3f,
+                10.2f,
+                8.1f,
+                4f,
+                7.3f,
+                9.1,
+                5.9,
+                6.5f,
+                -2.1f,
+                -1.7f
+        );
+//        System.out.println(orderedList);
+        Double f1 = orderedList.removeFront();
+        while (f1 != null) {
+            Double f2 = orderedList.removeFront();
+            if (f2 != null) {
+                assertTrue(f1 < f2);
+            }
+            f1 = f2;
+        }
+    }
+
+    @Test
     public void complexCheckOrderedFloatAscList() {
-        final OrderedList<Float> orderedList = createAscFloatOrderedList(
+        final OrderedList<Float> orderedList = createAscDoubleOrderedList(
                 3.1f,
                 1.3f,
                 2f,
@@ -154,7 +206,6 @@ public class OrderedListTest {
             }
             f1 = f2;
         }
-
     }
 
     @Test
@@ -163,6 +214,15 @@ public class OrderedListTest {
 //        System.out.println(orderedList);
         for (int i = 10; i >= -2; i--) {
             assertEquals(Integer.valueOf(i), orderedList.removeFront());
+        }
+    }
+
+    @Test
+    public void complexCheckOrderedNumAscList() {
+        final OrderedList<? super Number> orderedList = createAscNumOrderedList(-1f, -2.2, 3d, 1, 2, 0, 10.6, 8, 4, 7, 9, 5, 6);
+        System.out.println(orderedList);
+        for (int i = -2; i < 11 ; i++) {
+            assertEquals(i, orderedList.removeFront());
         }
     }
 
