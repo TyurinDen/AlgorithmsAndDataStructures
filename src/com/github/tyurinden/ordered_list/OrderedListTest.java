@@ -2,6 +2,8 @@ package com.github.tyurinden.ordered_list;
 
 import org.junit.Test;
 
+import java.util.*;
+
 import static org.junit.Assert.*;
 
 public class OrderedListTest {
@@ -100,7 +102,6 @@ public class OrderedListTest {
     @Test
     public void delete() {
         final OrderedList<Integer> orderedList = createAscIntOrderedList(1, 2, 4, 2, 3, 3, 4, 2, 6);
-//        System.out.println(orderedList.toString());
         orderedList.delete(2);
         assertNull(orderedList.find(2));
         assertEquals(6, orderedList.count());
@@ -133,6 +134,15 @@ public class OrderedListTest {
 //        System.out.println(orderedList);
         for (int i = -2; i < 12; i++) {
             assertEquals(Integer.valueOf(i), orderedList.removeFront());
+        }
+    }
+
+    @Test
+    public void whenFindAll_ThenReturnArrayList() {
+        final OrderedList<Integer> orderedList = createAscIntOrderedList(3, 1, 2, 0, 10, 8, 4, 7, 9, 5, 6, -2, -1, 11);
+        final List<Integer> integerListExpected = List.of(-2, -1, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11);
+        for (int i = 0; i < orderedList.getAll().size(); i++) {
+            assertEquals(integerListExpected.get(i), orderedList.getAll().get(i).getValue());
         }
     }
 

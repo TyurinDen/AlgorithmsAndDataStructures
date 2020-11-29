@@ -15,7 +15,7 @@ public class OrderedList<T> {
         _ascending = asc;
     }
 
-    public int compare(final T v1, final T v2) { // mandatory
+    public int compare(T v1, T v2) { // mandatory
         if (v1 instanceof Number & v2 instanceof Number) {
             final Double d1 = Double.parseDouble(v1.toString());
             final Double d2 = Double.parseDouble(v2.toString());
@@ -38,7 +38,7 @@ public class OrderedList<T> {
         // +1 если v1 > v2
     }
 
-    public void add(final T value) { // mandatory
+    public void add(T value) { // mandatory
         if (size == 0) { //список пуст
             final Node<T> node = new Node<>(value);
             this.head = node;
@@ -74,7 +74,7 @@ public class OrderedList<T> {
     // 5? 1,2,4,5,7,9 // 5? 6,7,9,10,14 // 5? 1,2,4,7,8,10 // 5? 1,2,3,4
     // 5? 14,12,10,10,8,6,5,3,1 // 5? 4,3,2,1,1,1 // 5? 14,12,9,6,3,2,1 // 5? 11,10,8,7,6
     //TODO подумать как оптимизировать поиск используя максимально, минимальное и среднее значение в массиве
-    public Node<T> find(final T val) { // mandatory
+    public Node<T> find(T val) { // mandatory
         Node<T> node = this.head;
         if (_ascending) { // массив упорядочен по возрастанию
             while (node != null) { //TODO можно сократить код, перенеся условие внутрь цикла while
@@ -100,7 +100,7 @@ public class OrderedList<T> {
         return null;
     }
 
-    public void delete(final T val) { // mandatory
+    public void delete(T val) { // mandatory
         Node<T> node = find(val);
         while (node != null) {
             if (size == 1) {
@@ -122,8 +122,8 @@ public class OrderedList<T> {
         }
     }
 
-    public void clear(final boolean asc) { // mandatory
-        _ascending = asc;
+    public void clear(boolean asc) { // mandatory
+        this._ascending = asc;
         this.head = null;
         this.tail = null;
         size = 0;
