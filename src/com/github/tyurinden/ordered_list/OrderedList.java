@@ -22,7 +22,7 @@ public class OrderedList<T> {
             return d1.compareTo(d2);
         }
 
-        if (v1 instanceof String) {
+        if (v1 instanceof String & v2 instanceof String) {
             final String str1 = v1.toString().trim();
             final String str2 = v2.toString().trim();
             if (str1.compareTo(str2) < 0) {
