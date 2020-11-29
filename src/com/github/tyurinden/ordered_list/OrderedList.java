@@ -17,26 +17,9 @@ public class OrderedList<T> {
 
     public int compare(final T v1, final T v2) { // mandatory
         if (v1 instanceof Number & v2 instanceof Number) {
-            if (checkThatArgumentIsInteger(v1)) {
-                final Long l1 = Long.valueOf(v1.toString());
-                final Long l2 = Long.valueOf(v2.toString());
-                if (l1.compareTo(l2) < 0) {
-                    return -1;
-                } else if (l1.compareTo(l2) == 0) {
-                    return 0;
-                }
-                return 1;
-            }
-            if (checkThatArgumentIsNonInteger(v1)) {
-                final Double d1 = Double.valueOf(v1.toString());
-                final Double d2 = Double.valueOf(v2.toString());
-                if (d1.compareTo(d2) < 0) {
-                    return -1;
-                } else if (d1.compareTo(d2) == 0) {
-                    return 0;
-                }
-                return 1;
-            }
+            final Double d1 = Double.parseDouble(v1.toString());
+            final Double d2 = Double.parseDouble(v2.toString());
+            return d1.compareTo(d2);
         }
 
         if (v1 instanceof String) {
@@ -53,14 +36,6 @@ public class OrderedList<T> {
         // -1 если v1 < v2
         // 0 если v1 == v2
         // +1 если v1 > v2
-    }
-
-    private boolean checkThatArgumentIsNonInteger(final T arg) {
-        return ((arg instanceof Float | arg instanceof Double));
-    }
-
-    private boolean checkThatArgumentIsInteger(final T arg) {
-        return (arg instanceof Long | arg instanceof Integer | arg instanceof Short | arg instanceof Byte);
     }
 
     public void add(final T value) { // mandatory
@@ -159,7 +134,7 @@ public class OrderedList<T> {
     }
 
     // выдать все элементы упорядоченного списка в виде стандартного списка
-    ArrayList<Node<T>> getAll() {// mandatory
+    public ArrayList<Node<T>> getAll() { // mandatory
         final ArrayList<Node<T>> r = new ArrayList<>();
         Node<T> node = head;
         while (node != null) {

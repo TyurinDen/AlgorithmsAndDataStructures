@@ -22,26 +22,10 @@ public class OrderedListTest {
         return orderedList;
     }
 
-    private OrderedList<? super Number> createAscNumOrderedList(final Number... nums) {
-        final OrderedList<? super Number> orderedList = new OrderedList<>(true);
-        for (final Number number : nums) {
-            orderedList.add(number);
-        }
-        return orderedList;
-    }
-
     private OrderedList<Float> createAscDoubleOrderedList(final float... floats) {
         final OrderedList<Float> orderedList = new OrderedList<>(true);
         for (final float f : floats) {
             orderedList.add(f);
-        }
-        return orderedList;
-    }
-
-    private OrderedList<Byte> createAscByteOrderedList(final byte... bytes) {
-        final OrderedList<Byte> orderedList = new OrderedList<>(true);
-        for (final byte anByte : bytes) {
-            orderedList.add(anByte);
         }
         return orderedList;
     }
@@ -172,7 +156,7 @@ public class OrderedListTest {
 //        System.out.println(orderedList);
         Double f1 = orderedList.removeFront();
         while (f1 != null) {
-            Double f2 = orderedList.removeFront();
+            final Double f2 = orderedList.removeFront();
             if (f2 != null) {
                 assertTrue(f1 < f2);
             }
@@ -210,19 +194,10 @@ public class OrderedListTest {
 
     @Test
     public void complexCheckOrderedIntDscList() {
-        final OrderedList<Integer> orderedList = createDscIntOrderedList(-1, -2, 3, 1, 2, 0, 10, 8, 4, 7, 9, 5, 6);
+        final OrderedList<Integer> orderedList = createDscIntOrderedList(4, 6, 3, 1, 2, 0, 10, 8, -1, 7, 9, 5, -2);
 //        System.out.println(orderedList);
         for (int i = 10; i >= -2; i--) {
             assertEquals(Integer.valueOf(i), orderedList.removeFront());
-        }
-    }
-
-    @Test
-    public void complexCheckOrderedNumAscList() {
-        final OrderedList<? super Number> orderedList = createAscNumOrderedList(-1f, -2.2, 3d, 1, 2, 0, 10.6, 8, 4, 7, 9, 5, 6);
-        System.out.println(orderedList);
-        for (int i = -2; i < 11 ; i++) {
-            assertEquals(i, orderedList.removeFront());
         }
     }
 
