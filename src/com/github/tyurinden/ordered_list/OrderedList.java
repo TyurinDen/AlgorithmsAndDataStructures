@@ -205,20 +205,20 @@ public class OrderedList<T> {
         return stringBuilder.toString();
     }
 
-    class Node<V> {
-        public V value;
-        public Node<V> next;
-        public Node<V> prev;
+}
 
-        public Node(V _value) {
-            value = _value;
-            next = null;
-            prev = null;
-        }
+class Node<V> {
+    public V value;
+    public Node<V> next;
+    public Node<V> prev;
 
-        public V getValue() {
-            return value;
-        }
+    public Node(V _value) {
+        value = _value;
+        next = null;
+        prev = null;
     }
 
+    public V getValue() {
+        return value;
+    }
 }
