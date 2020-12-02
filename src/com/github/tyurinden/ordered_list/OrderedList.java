@@ -8,7 +8,7 @@ public class OrderedList<T> {
     private boolean _ascending;
     private int size;
 
-    public OrderedList(final boolean asc) {
+    public OrderedList(boolean asc) {
         head = null;
         tail = null;
         size = 0;
@@ -171,12 +171,6 @@ public class OrderedList<T> {
     private void insertAfter(final Node<T> nodeAfter, final Node<T> nodeToInsert) {
         if (nodeToInsert == null) {
             return; // it would be right to throw an exception in this case
-        }
-        if (size == 0) { // case list is empty
-            this.head = nodeToInsert;
-            this.tail = nodeToInsert;
-            size++;
-            return;
         }
         if (nodeAfter == null) {
             nodeToInsert.next = this.head;

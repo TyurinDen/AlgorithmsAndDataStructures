@@ -51,18 +51,24 @@ public class OrderedListTest {
     @Test
     public void compare() {
         final OrderedList<Integer> intOrderedList = new OrderedList<>(true);
-        assertEquals(-1, intOrderedList.compare(1, 2));
+        assertEquals(-1, intOrderedList.compare(1, 5));
         assertEquals(0, intOrderedList.compare(2, 2));
-        assertEquals(1, intOrderedList.compare(3, 2));
+        assertEquals(1, intOrderedList.compare(5, 1));
 
-        final OrderedList<String> strOrderedList = new OrderedList<>(true);
-        assertEquals(-1, strOrderedList.compare("aa", "ab"));
-        assertEquals(0, strOrderedList.compare("aaa", "aaa"));
-        assertEquals(1, strOrderedList.compare("ab", "aa"));
-
-        assertEquals(-1, strOrderedList.compare("aa", "aaa"));
-        assertEquals(0, strOrderedList.compare("aaa", "aaa"));
-        assertEquals(1, strOrderedList.compare("aaa", "aa"));
+        final OrderedList<String> strOrderedList = createAscStringOrderedList(
+                "aaa",
+                "ab",
+                "aa",
+                "aa",
+                "ba",
+                "aaa",
+                "bb",
+                "bb",
+                "aaaa",
+                "aaaa",
+                "bbb"
+        );
+        assertEquals("{ aa, aa, aaa, aaa, aaaa, aaaa, ab, ba, bb, bb, bbb }", strOrderedList.toString());
     }
 
     @Test
@@ -87,7 +93,7 @@ public class OrderedListTest {
 
     @Test
     public void findInDscList() {
-        final OrderedList<Integer> orderedList = createAscIntOrderedList(1, 2, 3);
+        final OrderedList<Integer> orderedList = createDscIntOrderedList(1, 2, 3);
 
         assertEquals(Integer.valueOf(2), orderedList.getNodeValue(orderedList.find(2)));
 
@@ -114,6 +120,18 @@ public class OrderedListTest {
         assertNotNull(orderedList.find(3));
         orderedList.delete(3);
         assertNull(orderedList.find(3));
+        assertEquals(2, orderedList.count());
+
+        assertNotNull(orderedList.find(6));
+        orderedList.delete(6);
+        assertNull(orderedList.find(6));
+        assertEquals(1, orderedList.count());
+
+        orderedList.add(2);
+        orderedList.add(3);
+        assertNotNull(orderedList.find(1));
+        orderedList.delete(1);
+        assertNull(orderedList.find(1));
         assertEquals(2, orderedList.count());
     }
 
