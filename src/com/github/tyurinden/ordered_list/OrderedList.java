@@ -205,6 +205,42 @@ public class OrderedList<T> {
         return stringBuilder.toString();
     }
 
+    @Override
+    public boolean equals(final Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+
+        final OrderedList<?> that = (OrderedList<?>) o;
+        if (this.size != that.size) {
+            return false;
+        }
+        if (this.size == 0) {
+            return true;
+        }
+
+        Node<?> thatNode = that.head;
+        Node<?> thisNode = this.head;
+
+        while (thatNode != null) {
+            if (!thisNode.value.equals(thatNode.value)) {
+                return false;
+            }
+            thatNode = thatNode.next;
+            thisNode = thisNode.next;
+        }
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = (_ascending ? 1 : 0);
+        result = 31 * result + size;
+        return result;
+    }
 }
 
 class Node<V> {
