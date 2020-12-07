@@ -116,15 +116,15 @@ public class OrderedListTest {
         assertEquals(stringList, stringList);
         assertNotEquals(orderedList1, stringList);
 
-        orderedList1.delete(0);
-        orderedList2.delete(1);
+        orderedList1.deleteAll(0);
+        orderedList2.deleteAll(1);
         assertNotEquals(orderedList1, orderedList2);
 
         orderedList1.add(0);
         orderedList2.add(1);
         assertEquals(orderedList1, orderedList2);
 
-        orderedList1.delete(0);
+        orderedList1.deleteAll(0);
         assertNotEquals(orderedList1, orderedList2);
 
         orderedList1.clear(true);
@@ -150,10 +150,25 @@ public class OrderedListTest {
     @Test
     public void delete() {
         final OrderedList<Integer> orderedList = createAscIntOrderedList(1, 2, 4, 2, 3, 3, 4, 2, 6);
+
+        orderedList.delete(2);
+        assertEquals(8, orderedList.count());
+        OrderedList<Integer> orderedListExpected = createAscIntOrderedList(1, 2, 2, 3, 3, 4, 4, 6);
+        assertEquals(orderedListExpected, orderedList);
+
+        orderedList.delete(6);
+        orderedListExpected = createAscIntOrderedList(1, 2, 2, 3, 3, 4, 4);
+        assertEquals(orderedListExpected, orderedList);
+
+    }
+
+    @Test
+    public void deleteAll() {
+        final OrderedList<Integer> orderedList = createAscIntOrderedList(1, 2, 4, 2, 3, 3, 4, 2, 6);
         OrderedList<Integer> orderedListExpected = createAscIntOrderedList(1, 2, 2, 2, 3, 3, 4, 4, 6);
         assertEquals(orderedListExpected, orderedList);
 
-        orderedList.delete(2);
+        orderedList.deleteAll(2);
         assertNull(orderedList.find(2));
         assertEquals(6, orderedList.count());
 
@@ -161,7 +176,7 @@ public class OrderedListTest {
         assertEquals(orderedList, orderedListExpected);
 
         assertNotNull(orderedList.find(4));
-        orderedList.delete(4);
+        orderedList.deleteAll(4);
         assertNull(orderedList.find(4));
         assertEquals(4, orderedList.count());
 
@@ -169,7 +184,7 @@ public class OrderedListTest {
         assertEquals(orderedList, orderedListExpected);
 
         assertNotNull(orderedList.find(3));
-        orderedList.delete(3);
+        orderedList.deleteAll(3);
         assertNull(orderedList.find(3));
         assertEquals(2, orderedList.count());
 
@@ -178,7 +193,7 @@ public class OrderedListTest {
 
 
         assertNotNull(orderedList.find(6));
-        orderedList.delete(6);
+        orderedList.deleteAll(6);
         assertNull(orderedList.find(6));
         assertEquals(1, orderedList.count());
 
@@ -193,19 +208,19 @@ public class OrderedListTest {
         orderedListExpected = createAscIntOrderedList(1, 2, 3);
         assertEquals(orderedList, orderedListExpected);
 
-        orderedList.delete(1);
+        orderedList.deleteAll(1);
         assertNull(orderedList.find(1));
         assertEquals(2, orderedList.count());
 
-        orderedList.delete(2);
+        orderedList.deleteAll(2);
         orderedListExpected = createAscIntOrderedList(3);
         assertEquals(orderedList, orderedListExpected);
 
-        orderedList.delete(2);
+        orderedList.deleteAll(2);
         orderedListExpected = createAscIntOrderedList(3);
         assertEquals(orderedList, orderedListExpected);
 
-        orderedList.delete(3);
+        orderedList.deleteAll(3);
         orderedListExpected = createAscIntOrderedList();
         assertEquals(orderedList, orderedListExpected);
     }

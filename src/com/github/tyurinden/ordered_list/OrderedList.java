@@ -100,26 +100,35 @@ public class OrderedList<T> {
         return null;
     }
 
-    public void delete(T val) { // mandatory
+    public void deleteAll(T val) {
         Node<T> node = find(val);
         while (node != null) {
-            if (size == 1) {
-                clear(true);
-                return;
-            }
-            if (node == this.head) {
-                this.head = this.head.next;
-                this.head.prev = null;
-            } else if (node == this.tail) {
-                this.tail = this.tail.prev;
-                this.tail.next = null;
-            } else {
-                node.prev.next = node.next;
-                node.next.prev = node.prev;
-            }
-            size--;
-            node = find(val);
+            delete(node.value);
+            node = find(val); //TODO переделать! Каждый раз искать одно и то же значение в упорядоченном списке неверно
         }
+    }
+
+    public void delete(T val) { // mandatory
+        final Node<T> node = find(val);
+
+        if (node == null) {
+            return;
+        }
+        if (size == 1) {
+            clear(true);
+            return;
+        }
+        if (node == this.head) {
+            this.head = this.head.next;
+            this.head.prev = null;
+        } else if (node == this.tail) {
+            this.tail = this.tail.prev;
+            this.tail.next = null;
+        } else {
+            node.prev.next = node.next;
+            node.next.prev = node.prev;
+        }
+        this.size--;
     }
 
     public void clear(boolean asc) { // mandatory
