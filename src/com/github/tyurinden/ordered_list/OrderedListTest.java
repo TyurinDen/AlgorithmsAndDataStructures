@@ -159,7 +159,6 @@ public class OrderedListTest {
         orderedList.delete(6);
         orderedListExpected = createAscIntOrderedList(1, 2, 2, 3, 3, 4, 4);
         assertEquals(orderedListExpected, orderedList);
-
     }
 
     @Test

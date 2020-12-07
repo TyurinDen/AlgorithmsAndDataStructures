@@ -103,8 +103,12 @@ public class OrderedList<T> {
     public void deleteAll(T val) {
         Node<T> node = find(val);
         while (node != null) {
-            delete(node.value);
-            node = find(val); //TODO переделать! Каждый раз искать одно и то же значение в упорядоченном списке неверно
+            if (node.value.equals(val)) {
+                delete(node.value);
+            } else {
+                break;
+            }
+            node = node.next;
         }
     }
 
@@ -246,9 +250,7 @@ public class OrderedList<T> {
 
     @Override
     public int hashCode() {
-        int result = (_ascending ? 1 : 0);
-        result = 31 * result + size;
-        return result;
+        return Arrays.deepHashCode(this.getAll().toArray());
     }
 }
 
