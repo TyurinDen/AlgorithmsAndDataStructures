@@ -1,10 +1,14 @@
 package com.github.tyurinden.linked_list;
 
 import org.junit.Test;
+
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertArrayEquals;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNull;
 
 public class LinkedListTest {
 
@@ -17,7 +21,7 @@ public class LinkedListTest {
         LinkedList linkedList5 = new LinkedList(1, 1, 1);
         assertEquals(linkedList1, linkedList1);
         assertEquals(linkedList1, linkedList2);
-        assertNotEquals(linkedList2, linkedList3);
+        assertFalse(linkedList2.equals(linkedList3));
         assertEquals(linkedList4, linkedList5);
     }
 

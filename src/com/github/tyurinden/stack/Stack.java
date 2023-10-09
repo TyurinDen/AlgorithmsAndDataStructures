@@ -22,10 +22,7 @@ public class Stack<T> {
 
     @SuppressWarnings("unchecked")
     public Stack(int initialCapacity) {
-//        assert capacity > 0 : "Stack size must be greater then zero!";
-        if (initialCapacity <= 0) {
-            throw new RuntimeException("Stack size must be greater then zero!");
-        }
+        assert initialCapacity > 0 : "Stack size must be greater then zero!";
         this.capacity = initialCapacity;
         elements = (T[]) new Object[initialCapacity];
     }
