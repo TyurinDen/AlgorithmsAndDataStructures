@@ -66,6 +66,14 @@ public class IsPalindrome {
 
         s = s.toLowerCase().replaceAll("[^a-z0-9]", "");
 
+        //todo: вместо regex, он работает сильно медленнее чем код ниже
+//        StringBuilder b = new StringBuilder();
+//        for(int x = 0; x < s.length(); x++){
+//            if(Character.isLetterOrDigit(s.charAt(x))){
+//                b.append(s.charAt(x));
+//            }
+//        }
+
         int i = 0;
         int j = s.length() - 1;
 
