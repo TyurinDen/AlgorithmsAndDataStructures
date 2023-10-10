@@ -4,9 +4,9 @@ import java.util.Arrays;
 import java.util.LinkedList;
 
 /**
- * Инвертировать слова в строке. 'aa bb ccc' -> 'ccc bb aa'. Строка может содержать пробелы в любом месте
+ * Инвертировать слова в строке. 'aa bb ccc' -> 'ccc bb aa'. Строка может содержать пробелы между слов, в начале и в конце
  * <p>
- * Сложность: O((n)), где n - количество слов в строке
+ * Сложность: O(n), где n - количество слов в строке
  **/
 public class ReverseWords {
     public static void main(String[] args) {
